@@ -10,7 +10,7 @@ export const colors = {
   accept: "#3db14c",
   warn: red,
   error: red,
-  warning: 'yellow',
+  warning: "yellow",
   headerFg: white,
   headerBg: blue,
   subHeaderBg: "#bfbfbf",
