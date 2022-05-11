@@ -4,4 +4,4 @@
 
 My preferred personal configuration for writing react.
 
-> NOTE: stable currently not stable :) if you'd like to make a pr with a branch of 17 feel free! Till then, I'm totally fine on 16 right now
+> stable is 18 now
