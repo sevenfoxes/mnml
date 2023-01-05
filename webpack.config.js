@@ -20,7 +20,11 @@ module.exports = {
         test: /\.(js)$/,
         exclude: modules,
         use: {
-          loader: "babel-loader",
+          loader: "esbuild-loader",
+          options: {
+            loader: 'jsx',
+            target: 'es2015'
+          }
         },
       },
       {
