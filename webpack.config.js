@@ -1,10 +1,13 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const path = require("path");
+import HtmlWebPackPlugin from "html-webpack-plugin";
+import { fileURLToPath } from "url";
+import path from "path";
 
-const modules = path.resolve("node_modules");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-module.exports = {
+export default {
   devServer: {
+    port: 8080,
     historyApiFallback: {
       disableDotRule: true,
     },
@@ -17,14 +20,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        exclude: modules,
-        use: {
-          loader: "esbuild-loader",
-          options: {
-            loader: "jsx",
-            target: "es2015",
-          },
+        test: /\.(tsx)$/,
+        loader: "esbuild-loader",
+        options: {
+          loader: "tsx",
+          target: "es2015",
         },
       },
       {
@@ -49,12 +49,12 @@ module.exports = {
     ],
   },
   resolve: {
+    extensions: [".tsx", ".ts", ".js"],
     modules: [path.resolve(__dirname, "src"), "node_modules", "test-utils"],
     alias: {
       "lodash-es": "lodash",
       "lodash.debounce": "lodash/debounce",
-      cy$: path.resolve(__dirname, "src/cy/"),
-      components$: path.resolve(__dirname, "src/components/"),
+      primitives$: path.resolve(__dirname, "src/primitives/"),
     },
   },
   plugins: [
