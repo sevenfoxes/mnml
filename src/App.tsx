@@ -6,10 +6,10 @@ import { Header } from "./primitives/Header";
 
 export const App = () => {
   return (
-    <RecoilRoot>
+    <RecoilRoot >
       <ThemeProvider theme={theme}>
         <Header>
-          hi
+          this is a test
         </Header>
       </ThemeProvider>
     </RecoilRoot>

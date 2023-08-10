@@ -26,7 +26,7 @@
     "react-dom": "^18.2.0",
     "react-jss": "^10.5.1",
     "react-router-dom": "^5.2.0",
-    "recoil": "^0.3.1",
+    "recoil": "^0.7.7",
     "rxjs": "^6.6.6",
     "yup": "^0.32.9"
   },
