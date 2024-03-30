@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>MNML 2</title>
+  <meta name="color-scheme" content="light">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      scroll-behavior: smooth;
+      text-rendering: optimizeSpeed;
+      line-height: 1.5;
+    }
+
+    #root {
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    body,
+    ul[class],
+    ol[class] {
+      padding: 0;
+      margin: 0;
+    }
+
+    ul[class],
+    ol[class] {
+      list-style: none;
+    }
+
+    .hide {
+      position: absolute;
+      left: -999rem;
+    }
+
+    /*
+    button {
+    } */
+
+    button:focus-visible {
+      outline: 2px solid var(--green-high-contrast);
+      outline-offset: -4px;
+    }
+
+    :root {
+      /* grey */
+      --black: #222222;
+      --dark: #606060;
+      --grey: #8e8e93;
+      --border: #d6d6d6;
+      --darkened: #ddd;
+      --light: #dedede;
+      --background: #eee;
+      --white: #fff;
+
+      /* theme colors */
+      --blue: #0b75bb;
+      --blue-light: #9ab2c1;
+      --blue-extra-light: #e0eced;
+      --blue-very-light: #b8e5e9;
+      --blue-green: #24a1a5;
+
+      --green: #6ac29b;
+      --green-dark: #199ca7;
+      --green-high-contrast: #21666c;
+      --green-light: rgb(0, 255, 34);
+
+      --reassigned: #dc5446;
+      --danger: #f53d3d;
+      --secondary: #f28a33;
+      --purple: #7b4d97;
+      --highlight: #75a933;
+
+      /* shadows */
+      --shadow-default: 1px 1px 15px 0px #00000066;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>

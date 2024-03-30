@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ES6",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext",
+      "ES6"
+    ],
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "es6",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "constants": [
+        "./src/constants"
+      ],
+      "features/*": [
+        "./src/features/*"
+      ],
+      "images/*": [
+        "./src/images/*"
+      ],
+      "models/*": [
+        "./src/models/*"
+      ],
+      "primitives/*": [
+        "./src/primitives/*"
+      ],
+      "services/*": [
+        "./src/services/*"
+      ],
+      "utils/*": [
+        "./src/utils/*"
+      ]
+    }
+  }
+}
