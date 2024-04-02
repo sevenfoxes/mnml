@@ -42,7 +42,7 @@ const AppName: any = styled('span')(() => {
     gridColumnStart: 2,
     textDecoration: 'none',
     fontSize: '1.095rem',
-    letterSpacing: 17,
+    letterSpacing: 3,
     label: 'primitivelogoAppName'
   }
 });

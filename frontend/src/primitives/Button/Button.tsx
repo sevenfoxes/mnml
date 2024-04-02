@@ -22,7 +22,7 @@ const Root: any = styled('button')(({ size, fontSize, sx }: any) => {
   return {
     label: 'PrimitiveButton',
     background: 'transparent',
-    color: 'var(--blue)',
+    color: 'var(--white)',
     display: 'block',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

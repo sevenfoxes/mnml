@@ -24,12 +24,11 @@ const Root: any = styled(Grid)(({ scrollable }: any) => {
   const { state } = useDimensions('header');
 
   return {
-    overflow: scrollable ? 'auto' : 'hidden',
-    height: `calc(100% - ${state.height}px)`,
+    // overflow: scrollable ? 'auto' : 'hidden',
+    // height: `calc(100% - ${state.height}px)`,
     padding: '1rem',
     label: 'primitivePage',
     a: {
-      label: 'primitivePageLink',
       color: 'var(--black)',
       textDecoration: 'none',
       "&:hover": {
@@ -40,7 +39,7 @@ const Root: any = styled(Grid)(({ scrollable }: any) => {
 });
 
 export const Page: FC<PageProps> = (props) => {
-  const { className, columns = 'auto 1fr', rows, gap = 0, children, scrollable = true } = props;
+  const { className, columns = '200px 1fr', rows, gap = 10, children, scrollable = true } = props;
   const isAuthenticated = true
   const openModal = useSetRecoilState(modalSelector(modal.signout))
 

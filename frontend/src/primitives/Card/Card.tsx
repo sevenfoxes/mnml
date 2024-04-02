@@ -3,25 +3,29 @@ import { Scroll } from "primitives/Scroll"
 import { FC } from "react"
 
 const Root: any = styled('div')(({ sx, maxHeight }: any) => ({
-  fontSize: 12,
-  background: 'var(--white)',
-  display: 'grid',
-  gridTemplateRows: '36px 1fr',
+  // fontSize: 12,
+  // background: 'var(--white)',
+  // display: 'grid',
+  // gridTemplateRows: '36px 1fr',
+  borderRadius: 3,
   label: 'PrimitiveCard',
   ...sx
 }))
 
 const Header: any = styled('div')(({ hasTools }: any) => {
   return {
-    padding: '0 .5rem',
-    background: 'var(--blue-extra-light)',
-    display: 'grid',
+    padding: '.25rem .5rem',
+    background: 'var(--blue)',
     gridAutoFlow: 'column',
+    display: 'grid',
     gridTemplateColumns: hasTools ? '1fr auto' : '1fr',
-    alignItems: 'center',
-    gap: '.5rem',
-    fontSize: 12,
-    lineHeight: '22px',
+    // alignItems: 'center',
+    // gap: '.5rem',
+    // fontSize: 12,
+    // lineHeight: '22px',
+    color: 'white',
+    // background: 'var(--blue-light)',
+    borderRadius: '5px 5px 0 0 ',
     label: 'PrimitiveCardHeader'
   }
 })
@@ -29,12 +33,16 @@ const Header: any = styled('div')(({ hasTools }: any) => {
 const Content = styled(Scroll)(({ maxHeight }: any) => {
   return {
     label: 'PrimitiveCardContent',
-    maxHeight: maxHeight || '100vh',
-    position: 'relative'
+    background: 'white',
+    position: 'relative',
+    padding: '.5rem',
+    height: 'auto',
+    borderRadius: '0 0 5px 5px'
   }
 })
 
 const Tools = styled('div')({
+
   label: 'PrimitiveCardTools',
 
 })
@@ -42,7 +50,7 @@ const Tools = styled('div')({
 interface CardProps {
   children: any;
   title: string;
-  sx: any;
+  sx?: any;
   className?: string;
   tools?: any;
   onScrollEnd?: (a?: any) => void;

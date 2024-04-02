@@ -5,7 +5,6 @@ import { Button } from "primitives/Button";
 import { FC, useState } from "react";
 import { useOnClickOutside } from "utils/hooks/useOnClickOutside";
 import { useTranslation } from "react-i18next";
-import { useResetRecoilState } from "recoil";
 
 const Root: any = styled('div')({
   padding: 0,
@@ -78,6 +77,7 @@ const Logout: any = styled(Button)({
   padding: '13px 24px',
   minWidth: 200,
   textAlign: 'left',
+  color: "var(--blue)",
   label: 'PrimitiveAccountToolPopContainer',
 });
 
@@ -92,7 +92,7 @@ export const AccountTool: FC<any> = () => {
   return (
     <Root ref={ref}>
       <Btn onClick={() => setOpen(!open)}>
-        <Icon path={mdiAccountCircleOutline} size={1.5} />
+        <Icon path={mdiAccountCircleOutline} size={1.5} color="var(--blue)" />
       </Btn>
       <PopContainer open={open}>
         <PopArrow />

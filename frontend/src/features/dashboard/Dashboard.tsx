@@ -1,3 +1,4 @@
+import { DiceRoller } from "primitives/DiceRoller/DiceRoller"
 import { Header } from "primitives/Header"
 import { Page } from "primitives/Page"
 
@@ -6,7 +7,7 @@ export const Dashboard = () => {
     <Page
       title="Dashboard"
     >
-      This is a test
+      <DiceRoller />
     </Page>
   )
 }
