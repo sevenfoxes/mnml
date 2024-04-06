@@ -5,7 +5,7 @@ import { Field, FieldProps } from "primitives/Field";
 import { useRecoilState } from "recoil";
 import { fieldSelector, fieldTouchedState } from "./fieldState";
 
-type TextFieldProps = Omit<InputProps, 'value' | 'onChange'> & Omit<FieldProps, 'children'> & {
+type TextFieldProps = Omit<InputProps, 'value' | 'onChange'> & Omit<FieldProps<string>, 'children'> & {
   value?: string;
   password?: boolean;
   multiline?: boolean;
