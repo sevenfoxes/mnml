@@ -5,36 +5,36 @@ import { Field, FieldProps } from "primitives/Field";
 import { useRecoilState } from "recoil";
 import { fieldSelector, fieldTouchedState } from "./fieldState";
 
-type NumberFieldProps = Omit<InputProps, 'value' | 'onChange'> & Omit<FieldProps, 'children'> & {
+type NumberFieldProps = Omit<InputProps, 'value' | 'onChange'> & Omit<FieldProps<number>, 'children'> & {
   value?: number;
-  password?: boolean;
-  multiline?: boolean;
 }
 
 const StyledInput = styled(Input)({
   input: {
     textAlign: 'right',
-    label: 'NumberField'
+    label: 'NumberField',
+    background: 'var(--light)',
+    padding: '.5rem .25rem'
   },
   label: {
     label: 'NumberFieldLabel',
-    padding: '.5rem 1rem',
+    padding: 0,
     alignItems: 'center',
+    textAlign: 'right',
     display: 'grid',
-    gridTemplateColumns: '1fr auto'
+    gap: 3,
+    gridTemplateColumns: 'min-content 55px'
   }
 })
 
 export const NumberField: FC<NumberFieldProps> = (props) => {
-  const { className, label, disabled, id, required, showFieldIndicator, schema = null, placeholder, password, value: initValue = null, hideLabel, multiline } = props
+  const { className, label, disabled, id, required, schema = null, placeholder, password, value: initValue = null } = props
   const [{ value, error }, setField] = useRecoilState(fieldSelector(id))
   const [touched, setTouched] = useRecoilState(fieldTouchedState(id))
-
-
   const handleBlur = () => setTouched(true)
 
   const handleFieldUpdate = (e) => {
-    setField({ value: e.target.value })
+    setField({ value: Number(e.target.value) })
     !touched && setTouched(true)
   }
 
@@ -47,10 +47,10 @@ export const NumberField: FC<NumberFieldProps> = (props) => {
       id={id}
       schema={schema}
       initValue={initValue}
-      showFieldIndicator={showFieldIndicator}
+      showFieldIndicator={false}
     >
       <StyledInput
-        as={multiline ? 'textarea' : 'input'}
+        as={'input'}
         className={className}
         disabled={disabled}
         required={required}
@@ -60,10 +60,10 @@ export const NumberField: FC<NumberFieldProps> = (props) => {
         onChange={handleFieldUpdate}
         label={label}
         value={value}
-        type={password ? "password" : "text"}
+        type={"number"}
         error={error}
         password={password}
-        hideLabel={hideLabel}
+        {...props}
       />
     </Field>
   );

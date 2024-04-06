@@ -30,19 +30,19 @@ const ValidIndicator: any = styled('div')(({ valid }: any) => {
 })
 
 
-export interface FieldProps {
+export interface FieldProps<T> {
   id: string;
   children: ReactNode;
   schema?: any;
   retain?: boolean;
-  initValue?: string;
+  initValue: T;
   showFieldIndicator?: boolean;
   required?: boolean;
   label?: string;
 }
 
-export const Field: FC<FieldProps> = (props) => {
-  const { children, id, schema, initValue, retain = false, showFieldIndicator = true } = props
+export const Field = <T,>(props: FieldProps<T>) => {
+  const { children, id, schema, initValue = '', retain = false, showFieldIndicator = true } = props
   const formId = useContext(FormContext)
   const [f, addField] = useRecoilStateLoadable(formSelector(formId))
   const { prependId, clearData } = useRecoilValue(formConfigState(formId))

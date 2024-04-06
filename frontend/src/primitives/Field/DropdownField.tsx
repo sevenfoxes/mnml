@@ -1,11 +1,11 @@
 import { FC, useEffect } from "react"
-import { Dropdown, DropdownItem, DropdownProps } from "../Dropdown/Dropdown"
+// import { Dropdown, DropdownItem, DropdownProps } from "../Dropdown/Dropdown"
 import styled from "@emotion/styled"
 import { Field, FieldProps, fieldSelector, fieldTouchedState } from "primitives/Field"
 import { useRecoilState, useSetRecoilState } from "recoil"
 import { SerializedStyles } from "@emotion/react"
 
-const Root = styled(Dropdown)(({ sx }: any) => ({
+const Root = styled('div')(({ sx }: any) => ({
   alignItems: 'center',
   display: 'grid',
   gridTemplateColumns: '1fr auto',
@@ -14,7 +14,10 @@ const Root = styled(Dropdown)(({ sx }: any) => ({
   ...sx
 }))
 
-type FormDropdownProps = Omit<DropdownProps, 'value' | 'onClick'> & Omit<FieldProps, 'children'> & {
+type FormDropdownProps = {
+  id: string;
+  schema?: any;
+  showFieldIndicator?: boolean;
   required?: boolean;
   value?: string;
   sx?: SerializedStyles;
@@ -25,7 +28,7 @@ export const DropdownField: FC<FormDropdownProps> = (props) => {
   const [field, setValue] = useRecoilState(fieldSelector(id))
   const setTouched = useSetRecoilState(fieldTouchedState(id))
 
-  const handleFieldUpdate = (e, v: DropdownItem) => {
+  const handleFieldUpdate = (e, v) => {
     setValue({ value: v.value, valid: true })
   }
   const handleBlur = () => setTouched(true)
@@ -36,6 +39,7 @@ export const DropdownField: FC<FormDropdownProps> = (props) => {
 
   return (
     <Field
+      initValue={initValue}
       id={id}
       schema={schema}
       showFieldIndicator={showFieldIndicator}

@@ -1,7 +1,7 @@
 import { uniq } from 'lodash/fp';
 import { fieldsSelector } from 'primitives/Field';
 import { atomFamily, selectorFamily } from 'recoil';
-import { queryClient } from 'services/localStorage.service';
+// import { queryClient } from 'services/localStorage.service';
 import { AnyObjectSchema, ObjectSchema, object } from 'yup';
 import { ObjectShape } from 'yup/lib/object';
 
@@ -51,11 +51,14 @@ export const formRestoreState = atomFamily({
 export const formRestoreSelector = selectorFamily({
   key: 'formRestoreSelector',
   get: (formId: string) => ({ get }) => {
-    return get(formRestoreState(formId)) || queryClient.getQueryData([formId])
+    return null
+    // return get(formRestoreState(formId)) || queryClient.getQueryData([formId])
   },
   set: (formId: string) => ({ set }, payload) => {
     set(formRestoreState(formId), payload)
-    queryClient.setQueryData([formId], payload)
+
+    return null
+    // queryClient.setQueryData([formId], payload)
   }
 })
 
