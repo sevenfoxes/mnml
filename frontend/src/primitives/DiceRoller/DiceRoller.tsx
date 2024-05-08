@@ -113,7 +113,7 @@ export const DiceRoller: FC<DiceRollerProps> = (props) => {
         </Advanced>
       )}
       <Field>
-        {output.map((d, i) => (
+        {output?.map((d, i) => (
           <Die key={i}>
             <Label>{d}</Label>
           </Die>
