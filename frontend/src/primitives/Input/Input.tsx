@@ -1,156 +1,143 @@
 import styled from "@emotion/styled";
-import { ChangeEventHandler, ElementType, FC, useState } from "react";
-import { Required } from 'primitives/Required';
+import { Sx, Variants } from "models/Stylable.model";
+import { FC, useState } from "react";
+import { HtmlInputProps, ValueFirstEvent } from "./Input.model";
 import { Icon } from "primitives/Icon";
 
-export interface InputProps {
-  label: string;
-  type?: string;
-  value: string;
-  id: string;
-  placeholder?: string;
-  onBlur?: (e: Event) => void;
-  onFocus?: (e: Event) => void;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  onKeyUp?: any;
-  className?: string;
-  hideLabel?: boolean;
-  required?: boolean;
-  disabled?: boolean;
-  error?: string;
-  password?: boolean;
-  startIcon?: string;
-  endIcon?: string;
-  autocapitalize?: boolean;
-  as?: ElementType<any>;
-}
+type BaseInputProps = Omit<HtmlInputProps<any>, 'label'>
 
-const Root = styled('div')({
-  position: 'relative',
-  label: 'primitiveInput'
-});
+const Root = styled('div')(({ unstyle, theme, startIcon, endIcon, variant = Variants.default, sx = {} }: any) => {
+  const cols = [!!startIcon && 'min-content', '1fr', !!endIcon && 'min-content'].filter(i => i).join(' ')
+  const t = theme.input
+  const s = unstyle ? t.styles.unstyled.Root : t.styles[variant].Root({ cols })
 
-const StyledInput: any = styled('input')({
-  border: 'none',
-  borderRadius: 3,
-  padding: '5px 10px',
-  width: "100%",
-  display: 'block',
-  '&:hover, &:focus, &:active': {
-    outline: 'none',
-  },
-  '&:disabled': {
-    background: 'transparent',
-    opacity: .5
-  },
-  label: 'primitiveInputInput'
+  return {
+    label: t.labels.Root,
+    ...s,
+    ...sx
+  }
 })
 
-const Label: any = styled('label')({
-  display: 'block',
-  label: 'primitiveInputLabel',
+const StyledInput: any = styled('input')(({ unstyle, theme, variant, sx = {} }: any) => {
+  const t = theme.input
+  const s = unstyle ? t.styles.unstyled.Input : t.styles[variant].Input
+
+  return {
+    ...s,
+    ...sx
+  }
 })
 
-const LabelText = styled('span')(({ hideLabel }: any) => ({
-  fontSize: 12,
-  display: 'block',
-  position: hideLabel ? 'absolute' : 'static',
-  left: '-999px',
-  overflow: 'hidden',
-  label: 'primitiveInputLabelText'
-}))
+const StartIcon = styled(Icon)(({ theme, variant, sx, unstyle, onClick, fontSize = 11 }: any) => {
+  const t = theme.input
+  const s = unstyle ? t.styles.unstyled.StartIcon : t.styles[variant].StartIcon({ fontSize, onClick })
 
-const Error = styled('div')(({ hideLabel }: any) => ({
-  padding: '0 26px 5px',
-  fontSize: 12,
-  color: 'var(--danger)',
-  textAlign: 'right',
-  maxWidth: 340
-}))
+  return {
+    label: t.labels.startIcon,
+    ...s,
+    ...sx
+  }
+})
 
-const StartIcon = styled(Icon)(({ }: any) => ({
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  color: 'var(--blue)',
-  left: 6
-}))
+const EndIcon = styled(Icon)(({ onClick, unstyle, theme, variant, sx, fontSize = 11 }: any) => {
+  const t = theme.input
+  const s = unstyle ? t.styles.unstyled.EndIcon : t.styles[variant].EndIcon({ fontSize, onClick })
 
-const EndIcon = styled(Icon)(({ }: any) => ({
-  color: 'var(--blue)',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  right: 6
-}))
+  return {
+    label: t.labels.EndIcon,
+    ...s,
+    ...sx
+  }
+})
 
-const InputWrapper = styled('div')(({ startIcon, endIcon }: any) => ({
-  position: 'relative',
-  paddingLeft: startIcon ? 32 : 0,
-  paddingRight: endIcon ? 32 : 0
-}))
-
-export const Input: FC<InputProps> = (props) => {
+export const Input: FC<BaseInputProps> = (props) => {
   const {
-    error = '',
-    hideLabel = false,
-    className, type = 'text',
-    as,
+    onClickEndIcon,
+    onClickStartIcon,
+    startIcon,
+    endIcon,
     onChange,
     onFocus,
     onBlur,
-    id,
-    placeholder,
-    label,
+    as = 'input',
+    readonly = false,
+    readonlyType = 'span',
+    error = '',
+    type = 'text',
     required = false,
-    password,
-    startIcon,
-    endIcon,
-    autocapitalize = false
+    sx = {} as Sx,
+    variant = Variants.default,
+    value: v = '',
+    unstyle = false,
+    ...rest
   } = props
+  const [value, setV] = useState(v);
   const [focused, setFocused] = useState(false);
 
-  const handleFocus = (e: any) => {
+  const stylable = {
+    variant,
+    unstyle,
+  }
+
+  const startStyleable = {
+    ...stylable,
+    ...sx?.icons,
+    ...sx?.startIcon
+  }
+
+  const endStyleable = {
+    ...stylable,
+    ...sx?.icons,
+    ...sx?.endIcon
+  }
+
+  const handleChange: ValueFirstEvent<any> = (v, e) => {
+    const val = e.target?.event
+    setV(val)
+    !!onChange && onChange(val, e)
+  }
+
+  const handleFocus: ValueFirstEvent<any> = (v, e) => {
     setFocused(true)
-    !!onFocus && onFocus(e)
+    !!onFocus && onFocus(v, e)
   }
 
-  const handleBlur = (e: any) => {
+  const handleBlur: ValueFirstEvent<any> = (v, e) => {
     setFocused(false);
-    !!onBlur && onBlur(e)
+    !!onBlur && onBlur(v, e)
   }
-
 
   return (
-    <>
-      <Root className={className}>
-        <Label
-          htmlFor={id}
-          focused={focused}
-
-        >
-          <LabelText hideLabel={hideLabel}>
-            {label} {required && <Required />}
-          </LabelText>
-          <InputWrapper startIcon={startIcon} endIcon={endIcon}>
-            {!!props?.startIcon && <StartIcon path={props.startIcon} />}
-            <StyledInput
-              autocapitalize={autocapitalize}
-              id={id}
-              hasText={!!props.value?.length}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              onChange={onChange}
-              placeholder={placeholder}
-              type={type}
-              password={password}
-              {...props}
-            />
-            {!!props?.endIcon && <EndIcon path={props.endIcon} />}
-          </InputWrapper>
-        </Label>
-      {!!error && <Error>{error}</Error>}
-      </Root>
-    </>
+    <Root
+      {...stylable}
+      sx={sx?.root || sx}
+      startIcon={startIcon}
+      endIcon={endIcon}
+    >
+      {!!startIcon && (
+        <StartIcon
+          {...startStyleable}
+          onClick={onClickStartIcon}
+          path={startIcon}
+        />)}
+      <StyledInput
+        {...stylable}
+        sx={sx?.input}
+        focused={focused}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        as={readonly ? 'span' : as}
+        type={type}
+        value={value}
+        {...rest}
+      />
+      {!!endIcon && (
+        <EndIcon
+          {...endStyleable}
+          onClick={onClickEndIcon}
+          path={endIcon}
+        />)}
+    </Root>
   );
 }

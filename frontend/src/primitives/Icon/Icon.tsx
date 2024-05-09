@@ -1,8 +1,9 @@
 import { FC } from "react";
 import MdiIcon from '@mdi/react';
 import styled from "@emotion/styled";
+import { StatelessPrimitiveProps } from "models/Primitive.model";
 
-interface IconProps {
+interface IconProps extends StatelessPrimitiveProps {
   path: string;
   size?: number;
   className?: string;

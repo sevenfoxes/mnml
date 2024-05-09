@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { FC, MouseEventHandler, ReactNode, useEffect, useState } from "react";
-import { buttonSize } from "./buttonSize";
 import { SerializedStyles } from "@emotion/react";
+import { Size } from "models/Stylable.model";
 
 export interface ButtonProps {
   children: ReactNode;
@@ -9,7 +9,7 @@ export interface ButtonProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
   className?: string;
   disabled?: boolean;
-  size?: buttonSize;
+  size?: Size;
   ref?: any;
   sx?: SerializedStyles;
   color?: string;
@@ -18,7 +18,7 @@ export interface ButtonProps {
 }
 
 const Root: any = styled('button')(({ size, fontSize, sx }: any) => {
-  const s = size === buttonSize.small
+  const s = size === Size.small
   return {
     label: 'PrimitiveButton',
     background: 'transparent',
@@ -47,10 +47,10 @@ export const Button: FC<ButtonProps> = (props) => {
   const { children, type, onClick, className, size, sx, disabled, ...p } = props;
   const [fontSize, setFontsize] = useState('.9rem')
   useEffect(() => {
-    if (size === buttonSize.large) {
+    if (size === Size.large) {
       setFontsize('1.2rem')
     }
-    if (size === buttonSize.small) {
+    if (size === Size.small) {
       setFontsize('.8rem')
     }
   }, [])

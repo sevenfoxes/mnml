@@ -1,29 +1,38 @@
 import { FC } from "react"
 import styled from "@emotion/styled";
-import { buttonSize } from "primitives/Button/buttonSize"
-import { CheckboxProps } from "primitives/Checkbox";
-import { Label, LabelPostion } from "primitives/Label";
+import { } from "primitives/Input";
+import { Label } from "primitives/Label";
+import { CheckboxInputProps } from "primitives/Input/CheckboxInput";
+import { AnyObject } from "yup/lib/types";
+import { Position, Size } from "models/Stylable.model";
+export interface ToggleProps extends CheckboxInputProps {
 
-interface ToggleProps extends CheckboxProps {
-  handleOnClick?: any;
+  onChange?: any;
 }
 
-const Root = styled(Label)(({
-  fontSize: 12,
-  padding: '.5rem 1rem',
-  display: 'grid',
-  gridTemplateColumns: '1fr auto',
-  position: 'relative',
-  '&:not(:disabled)': {
-    cursor: 'pointer'
+const Root: any = styled(Label)(({ sx, size, position }: AnyObject) => {
+  let fontSize = 11
+  if (size === Size.medium) {
+    fontSize = 12
   }
-}))
 
-const Text = styled('span')(({
-  label: 'primitiveToggle',
-  whiteSpace: 'nowrap',
-  display: 'block'
-}))
+  if (size === Size.large) {
+    fontSize = 13
+  }
+
+  return {
+    fontSize,
+    padding: '.5rem 1rem',
+    display: 'grid',
+    gridTemplateColumns: position === Position.before ? '1fr auto' : 'auto 1fr',
+    gap: position === Position.before ? 8 : 16,
+    position: 'relative',
+    '&:not(:disabled)': {
+      cursor: 'pointer'
+    },
+    ...sx
+  }
+})
 
 const Input = styled('input')({
   label: 'primitiveToggleInput',
@@ -37,7 +46,7 @@ const Input = styled('input')({
 const Tog = styled('div')(({ disabled }: any) => ({
   position: 'relative',
   opacity: disabled && .5,
-  transform: 'translate(-25%, -50%)'
+  transform: 'translate(7px, -50%)'
 }))
 
 const Handle = styled('div')(({ checked, overhang, trackHeight }: any) => ({
@@ -65,38 +74,35 @@ const Track = styled('div')(({ trackHeight }: any) => ({
 }))
 
 export const Toggle: FC<ToggleProps> = (props) => {
-  const { size = buttonSize.medium, className, onChange, id, labelPosition = LabelPostion.before, hideLabel, label, disabled, handleOnClick, checked } = props
-  let trackHeight = 18
-  let overhang = 4
+  const { value, size = Size.medium, className, id, position = Position.above, hideLabel, label, disabled, checked, sx } = props
+  let trackHeight = 16
+  let overhang = 3
 
 
-  if (size === buttonSize.large) {
-    trackHeight = 23
-    overhang = 7
+  if (size === Size.large) {
+    trackHeight = 22
+    overhang = 4
   }
 
-  if (size === buttonSize.small) {
-    trackHeight = 14
-    overhang = 3
+  if (size === Size.small) {
+    trackHeight = 13
+    overhang = 2
   }
 
-  const handleChange = (v, id, e) => {
-    const b = handleOnClick()
-    if (typeof b === 'boolean') {
-      !!onChange && onChange(b, id, e)
-    }
+  const handleClick = (e) => {
+    e.preventDefault()
+    !!props.onChange && props.onChange(e)
   }
 
+  if (value === null) return null
 
   return (
-    <Root htmlFor={id} className={className}>
-      {labelPosition === LabelPostion.before && !hideLabel && <Text>{label}</Text>}
+    <Root size={size} id={id} className={className} sx={sx?.label} position={position} text={label} hideText={hideLabel} onClick={handleClick}>
       <Tog disabled={disabled}>
-        <Input type={'checkbox'} id={id} onChange={(e) => handleChange(!checked, id, e)} checked={checked} disabled={disabled} />
+        <Input type={'checkbox'} id={id} disabled={disabled} value={value} />
         <Track trackHeight={trackHeight} />
-        <Handle overhang={overhang} trackHeight={trackHeight} checked={checked} />
+        <Handle overhang={overhang} trackHeight={trackHeight} checked={value} />
       </Tog>
-      {labelPosition === LabelPostion.after && !hideLabel && <Text>{label}</Text>}
     </Root>
   )
 }
