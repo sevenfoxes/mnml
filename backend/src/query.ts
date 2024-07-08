@@ -1,7 +1,21 @@
-import { objectType } from "nexus";
+import { GraphQLObjectType, GraphQLString } from "graphql";
+import { factionType } from "./faction";
+import { getEmpire, getRebels } from "./database";
+import { nDef } from "./node";
 
-// prefer to use the extend pattern than define things here
-export const Query = objectType({
-  name: "Query",
-  definition(t) { },
-})
+export const query = new GraphQLObjectType({
+  name: 'Query',
+  fields: () => {
+    return ({
+      rebels: {
+        type: factionType,
+        resolve: () => getRebels(),
+      },
+      empire: {
+        type: factionType,
+        resolve: () => getEmpire(),
+      },
+      node: nDef.nodeField,
+    })
+  },
+});
