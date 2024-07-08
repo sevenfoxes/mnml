@@ -7,9 +7,7 @@
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server",
     "start": "node dist/server",
     "clean": "rm  -rf dist",
-    "build": "npm -s run clean && npm -s run generate && tsc",
-    "generate": "npm -s generate:nexus",
-    "generate:nexus": "ts-node --transpile-only src/schema"
+    "build": "npm -s run clean && tsc"
   },
   "author": "Scott Nesham",
   "license": "ISC",
@@ -18,8 +16,7 @@
     "graphql": "^16.9.0",
     "graphql-relay": "^0.10.1",
     "graphql-scalars": "^1.23.0",
-    "lodash": "^4.17.21",
-    "nexus": "^1.3.0"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.0",

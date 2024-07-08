@@ -1,13 +1,12 @@
 import { GraphQLObjectType, GraphQLString } from "graphql";
 import { connectionArgs, connectionFromArray, globalIdField } from "graphql-relay";
-import nodeDefinition from "../node/output";
-import { shipConnection } from "../ship/connection";
-import { getShip } from "../database";
+import { shipConnection, getShip } from "../ship";
+import { node } from "../node/node";
 
 export const factionType: GraphQLObjectType = new GraphQLObjectType({
   name: 'Faction',
   description: 'A faction in the Star Wars saga',
-  // interfaces: [nodeDefinition.nodeInterface],
+  interfaces: [node.nodeInterface],
   fields: () => ({
     id: globalIdField(),
     name: {
